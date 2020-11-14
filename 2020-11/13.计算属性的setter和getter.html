@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 不加小括号单独使用该属性  直接调get了  当属性使用 -->
+        <h3>{{fullName}}</h3>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                firstName: 'TOM',
+                lastName: 'andy'
+            },
+            computed: {
+                // 计算属性 一般是没有set 方法 只读属性
+                fullName: {
+                    set: function (newValue) {
+                        console.log('---------');
+                        const names = newValue.split(' ')
+                        this.firstName = name[0]
+                        this.lastName = name[1]
+                    },
+                    get: function () {
+                        return this.firstName + ' ' + this.lastName
+                    },
+                    // fullName: function () {
+                    //     return this.firstName + ' ' + this.lastName
+                    // }   这个简写其实就是get方法 
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
