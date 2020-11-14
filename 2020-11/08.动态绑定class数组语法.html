@@ -21,7 +21,7 @@
         <!-- 这种是当作一个变量去解析  如果想表示为字符串的话 就加双引号  如果是一个变量就不加-->
         <h2 :class="[active,line]">{{message}}</h2>
         <!-- 如果加单引号 就当作字符串解析 -->
-        <!-- <h2 :class="['active','line']">{{message}}</h2> -->
+        <h2 :class="['active','line']">{{message}}</h2>
         <h2 :class=getClass()>{{message}}</h2>
 
     </div>
