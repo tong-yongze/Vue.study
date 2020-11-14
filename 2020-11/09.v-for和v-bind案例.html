@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h2>{{message}}</h2>
+        <ul>
+            <!-- <li v-for="变量 in 列表">{{m}}</li> -->
+            <!-- <li v-for="m in movies">{{m}}</li> -->
+            <li :class="{red:changeRed == index }" v-on:click="change(index)" v-for="(m,index) in movies">
+                {{m}}</li>
+        </ul>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '电影',
+                movies: ['火影', '海贼王', '柯南', '日漫'],
+                changeRed: -1
+            },
+            methods: {
+                change: function (index) {
+                    this.changeRed = index;
+                }
+            }
+        })
+// 首先浏览器直接显示列表，因为此时没有监听到click事件。
+// 当鼠标点击某一个列表时，Vue自动获取列表下标，并执行change(index)函数，改变changeRed的值，此时当前列表的v-bind:class="{red: changeRed == index}"中的red为true，当前一项列表显示为红色。其余列表的changeRed == index为false，所以不显示红色。
+    </script>
+</body>
+
+</html>

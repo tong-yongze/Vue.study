@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .active {
+            color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+        <!-- <h2 v-bind:class="{类名1：布尔值,类名2：布尔值}">{{message}}</h2> -->
+        <!-- <h2 v-bind:class="{active: isActive , line: isLine}">{{message}}</h2> -->
+        <!-- <button v-on:click="btnClick">按钮</button> -->
+        <!-- 这种是当作一个变量去解析  如果想表示为字符串的话 就加双引号  如果是一个变量就不加-->
+        <h2 :class="[active,line]">{{message}}</h2>
+        <!-- 如果加单引号 就当作字符串解析 -->
+        <!-- <h2 :class="['active','line']">{{message}}</h2> -->
+        <h2 :class=getClass()>{{message}}</h2>
+
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊',
+                active: 'aaa',
+                line: 'bbb'
+            },
+            methods: {
+                getClass: function () {
+                    return [this.active, this.line]
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

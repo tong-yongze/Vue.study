@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .active {
+            color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+        <!-- <h2 v-bind:class="{类名1：布尔值,类名2：布尔值}">{{message}}</h2> -->
+        <h2 v-bind:class="{active: isActive , line: isLine}">{{message}}</h2>
+        <button v-on:click="btnClick">按钮</button>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊',
+                // 两者默认都是true  当其中一个false  class就不会生效 通过变量决定要不要加class
+                isActive: true,
+                isLine: true
+            },
+            methods: {
+                btnClick: function () {
+                    // 取反
+                    this.isActive = !this.isActive
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
