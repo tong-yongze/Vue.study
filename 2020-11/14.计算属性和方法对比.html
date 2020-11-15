@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 方法 -->
+        <h3>{{getFullName()}}</h3>
+        <h3>{{getFullName()}}</h3>
+        <h3>{{getFullName()}}</h3>
+
+        <!-- 计算属性 -->
+        <!-- <h3>{{funllName}}</h3>
+        <h3>{{funllName}}</h3>
+        <h3>{{funllName}}</h3> -->
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                firstName: 'TOM',
+                lastName: 'andy'
+            },
+            // 方法会 更加消耗资源  有n次就调用n次
+            methods: {
+                getFullName: function () {
+                    console.log('getFullName');
+                    return this.firstName + ' ' + this.lastName
+                }
+            },
+            // 计算属性  只需要调用一次 效率高
+            computed: {
+                funllName: function () {
+                    console.log('fullName');
+                    return this.firstName + ' ' + this.lastName
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

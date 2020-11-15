@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        console.time('耗时');
+        let str = ''
+        for (let i = 0; i < 1000; i++) {
+            str += '<div>' + i + '</div>'
+        }
+        document.body.innerHTML = str;
+        console.timeEnd('耗时');   // 测试题.html:19 耗时: 2.415771484375 ms
+
+        console.time('耗时')
+        let arr = []
+        for (let i = 0; i < 1000; i++) {
+            arr.push('<div>' + i + '</div>')
+        }
+        document.body.innerHTML = arr.join('')
+        console.timeEnd('耗时');  // 测试题.html:27 耗时: 1.720947265625 ms
+
+    </script>
+</body>
+
+</html>
