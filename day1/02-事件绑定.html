@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{num}}</div>
+        <button v-on:click='num++'>按钮</button>
+        <br>
+        <button @click='num++'>按钮1</button>
+        <button @click=add>按钮2</button>
+        <button @click='add'>按钮3</button>
+        <button @click='add()'>按钮4</button>
+
+
+
+
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+        const a = new Vue({
+            el: '#app',
+            data: {
+                num: 0
+            },
+            methods: {
+                add: function () {
+                    // 这里得this 是vue 得实例对象
+                    console.log(this === a);
+                    this.num++
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

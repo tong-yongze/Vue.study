@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{num}}</div>
+        <div v-on:click='add1'>
+            <button v-on:click.stop='add2'>点击</button>
+        </div>
+        <div v-on:click.prevent='add3'>
+            <a href="http://www.baidu.com">百度一下啊</a>
+        </div>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                num: 0
+            },
+            methods: {
+                add1: function () {
+                    this.num++
+                },
+                add2: function (e) {
+                    // 阻止冒泡
+                    // e.stopPropagation()
+                },
+                add3: function (e) {
+                    // 阻止默认提交行为
+                    // e.preventDefault()
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

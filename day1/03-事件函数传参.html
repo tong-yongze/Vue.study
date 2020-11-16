@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{num}}</div>
+        <button v-on:click='add1(123,456,$event)'>按钮1</button>
+        <button @click='add2(123,456,$event)'>按钮2</button>
+    </div>
+    <script src="./js/vue.js"></script>
+
+    <script>
+        const a = new Vue({
+            el: '#app',
+            data: {
+                num: 0
+            },
+            methods: {
+                add1: function (p, p1, event) {
+                    console.log(p, p1);
+                    console.log(event.target.tagName);
+                    // 这里得this 是vue 得实例对象
+
+                    this.num++
+                },
+                add2: function (p, p1, event) {
+                    // 这里得this 是vue 得实例对象
+                    console.log(p, p1);
+                    console.log(event.target.innerHTML);
+                    this.num++
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
