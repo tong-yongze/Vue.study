@@ -10,24 +10,24 @@
 <body>
     <div id="app">
         <div>{{msg}}</div>
-        <p>{{9+6}}</p>
-        <!-- 转换为数组 并且翻转 所有的元素放入一个字符串 -->
-        <p>{{msg.split('').reverse().join('')}}</p>
-        <p>{{msg.length > 18?' 大于8': '小于8'}}</p>
-        <p>{{10>9.9?"大于" :'小于'}}</p>
-        <div>
-            <input type="text " v-model='msg'>
-        </div>
+        <div v-text='msg'></div>
+        <!-- <div v-txt='"msg"'></div> -->
+        <div v-html='msg1'></div>
+        <div v-pre>{{msg}}</div>
+        <!-- 不可改 -->
+        <div v-once>{{info}}</div>
     </div>
     <script src="./js/vue.js"></script>
     <script>
-        const a = new Vue({
-            el: '#app',
+        let vm = new Vue({
+            el: "#app",
             data: {
                 msg: 'hello vue',
-
+                msg1: '<h2>你好</h2>',
+                info: 'hhl'
             }
         })
+
     </script>
 </body>
 

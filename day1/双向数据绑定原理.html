@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text">
+    <p></p>
+    <script>
+        const oP = document.querySelector('p');
+        const oInput = document.querySelector('input');
+        // 双向数据绑定的原理：Object.defineProperty
+
+        /* let obj = {
+            _msg: 'hello'
+        }; */
+        // 也可以通过 Object.defineProperty 来定义数据
+
+        let obj = {
+            // 下划线开头的属性一般我们用来表示私有的，不期望外部访问的
+            _msg: 'hello'
+        };
+        // 需要操作的对象、属性名、属性描述对象
+        Object.defineProperty(obj, 'msg', {
+            // 获取属性值的时候会触发，得到的一个结果就是 get 函数的返回值
+            // get 和set 固定写法
+            get() {
+                // this 就是 obj 对象
+                return this._msg;
+            },
+            // 设置属性值的时候会触发，newValue 就是设置的新值
+            set(newValue) {
+                this._msg = newValue;
+                // #2 数据影响视图
+                oInput.value = newValue;
+                oP.innerHTML = newValue;
+            }
+        });
+        obj.msg = 'Hello World'; // 设置的时候会先走 set 函数，把 'Hello World' 赋值给了 obj._msg
+        console.log(obj.msg); // 获取的时候会走 get 函数，把 obj._msg 返回了而已
+
+        // #1 视图影响数据
+        // 当输入的时候会触发 input
+        oInput.oninput = function (e) {
+            // 当输入的时候会实时的修改 obj 下 msg 的值
+            // 一旦修改了，就会触发 set 函数
+            // 其实我只需要在 set 函数里面 对 oP.innerHTML 和 oInput.value 进行赋值不就可以实现数据绑定了吗
+            obj.msg = e.target.value
+        };
+    </script>
+</body>
+
+</html>
