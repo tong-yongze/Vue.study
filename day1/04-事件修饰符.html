@@ -8,7 +8,9 @@
 </head>
 
 <body>
-    <div id="app">
+    <!-- self 只有自己点击了才触发 -->
+    <div id="app" @click.self='add5'>
+        add5
         <div>{{num}}</div>
         <div v-on:click='add1'>
             <button v-on:click.stop='add2'>点击</button>
@@ -16,6 +18,7 @@
         <div v-on:click.prevent='add3'>
             <a href="http://www.baidu.com">百度一下啊</a>
         </div>
+        <div @click='add4'>add4</div>
     </div>
     <script src="./js/vue.js"></script>
     <script>
@@ -35,6 +38,12 @@
                 add3: function (e) {
                     // 阻止默认提交行为
                     // e.preventDefault()
+                },
+                add4: function () {
+                    console.log('add4');
+                },
+                add5: function () {
+                    console.log('add5');
                 },
             }
         })

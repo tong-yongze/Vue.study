@@ -54,14 +54,24 @@
     <div id="app">
         <div class="tab">
             <ul>
-                <li v-on:click='change(index)' :class='currentIndex==index?"active":""' @key='item.id'
-                    v-for='(item,index) in list'>{{item.title}}
+                <li @click='change(index)' v-for='(item,index) in list' :class='{active:currentIndex==index}'
+                    :key='item.id'>
+                    {{item.title}}
                 </li>
             </ul>
-            <div v-for='(item,index) in list' :class='currentIndex==index?"current":""'>
+            <!-- <div v-for='(item,index) in list' :class='{current:currentIndex==index}' :key='item.id'>
+                <img :src="item.path">
+            </div> -->
+            <!-- 数组不能是键值对的形式 这是对象所独有的 所以不能去掉 大括号 -->
+            <!-- <div v-for='(item,index) in list' :class='[currentIndex==index?"current":""]' :key='item.id'>
+                <img :src="item.path">
+            </div> -->
+            <div v-for='(item,index) in list' :class='[current:currentIndex==index]' :key='item.id'>
                 <img :src="item.path">
             </div>
+
         </div>
+    </div>
     </div>
     <script type="text/javascript" src="js/vue.js"></script>
     <script type="text/javascript">

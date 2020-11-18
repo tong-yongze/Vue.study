@@ -10,6 +10,8 @@
 <body>
     <div id="app">
         <div>{{num}}</div>
+        <!-- 如果时间直接绑定函数名称 那么默认事件会传递事件对象作为事件函数的第一个参数 -->
+
         <button v-on:click='add1(123,456,$event)'>按钮1</button>
         <button @click='add2(123,456,$event)'>按钮2</button>
     </div>
@@ -23,10 +25,10 @@
             },
             methods: {
                 add1: function (p, p1, event) {
-                    console.log(p, p1);
-                    console.log(event.target.tagName);
+                    console.log(p1);
+                    // $event 是事件对象  固定写法 位置一般放在后面
+                    console.log(event);
                     // 这里得this 是vue 得实例对象
-
                     this.num++
                 },
                 add2: function (p, p1, event) {

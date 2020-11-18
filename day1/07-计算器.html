@@ -10,13 +10,15 @@
 <body>
     <div id="app">
         <span>数值A</span>
-        <input type="text" v-model='a'>
+        <input type="text" v-model='a' v-focus='clear'> <br>
         <span>数值B</span>
-        <input type="text" v-model='b'>
+        <input type="text" v-model='b'> <br>
         <button v-on:click='handle'>计算</button>
         <div>
             <span>计算结果:</span>
-            <span v-text='result'></span>
+            <!-- <span v-text='result'></span> -->
+
+            <span v-text='result'>{{result}}</span>
         </div>
     </div>
     <script src="./js/vue.js"></script>
@@ -31,7 +33,9 @@
             methods: {
                 handle: function () {
                     this.result = parseInt(this.a) + parseInt(this.b)
-                }
+                    this.a = '';
+                    this.b = '';
+                },
             }
         })
     </script>

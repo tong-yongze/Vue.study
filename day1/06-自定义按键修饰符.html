@@ -9,12 +9,21 @@
 
 <body>
     <div id="app">
-        <input type="text" v-on:keyup.www='key' v-model='info'>
+        <input type="text" v-on:keyup.keydowna='key' v-model='info' v-focus>
+        <input type="text" v-on:keyup='handle'>
     </div>
     <script src="./js/vue.js"></script>
     <script>
-
-        Vue.config.keyCodes.www = 87
+        // 自定义按键修饰符名字是自定义的 
+        // a 和A 不一样  不支持驼峰写法
+        Vue.directive('focus', {
+            // 当被绑定的元素插入到 DOM 中时……
+            inserted: function (el) {
+                // 聚焦元素
+                el.focus()
+            }
+        })
+        Vue.config.keyCodes.keydowna = 65
         const app = new Vue({
             el: '#app',
             data: {
@@ -22,6 +31,9 @@
             },
             methods: {
                 key: function (e) {
+                    console.log(e.keyCode);
+                },
+                handle: function (e) {
                     console.log(e.keyCode);
                 }
             }
