@@ -11,6 +11,16 @@
     <div id="app">
         <div>{{msg}}</div>
         <div>{{reverseString}}</div>
+        <div>{{reverseString}}</div>
+        <div>{{reverseString}}</div>
+        <div>{{reverseString}}</div>
+        <div>{{reverseString}}</div>
+        <div>{{reverseString}}</div>
+        <!-- 方法加括号 -->
+        <div>{{reverseString2()}}</div>
+        <div>{{reverseString2()}}</div>
+        <div>{{reverseString2()}}</div>
+
     </div>
     <script type="text/javascript" src="./js/vue.js"></script>
     <script type="text/javascript"></script>
@@ -20,12 +30,18 @@
             data: {
                 msg: 'hello'
             },
+            methods: {
+                reverseString2: function () {
+                    console.log('methods');
+                    return this.msg.split('').reverse().join('')
+                }
+            },
             computed: {
                 reverseString: function () {
+                    console.log('computed');
                     return this.msg.split('').reverse().join('')
                 }
             }
-
         })
     </script>
 </body>

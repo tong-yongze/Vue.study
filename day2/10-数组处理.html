@@ -25,6 +25,17 @@
                 fruit: '',
                 list: ['apple', 'orange', 'banana']
             },
+            // methods: {
+            //     add: function () {
+            //         this.list.router.push(this.fruit)
+            //     },
+            //     del: function () {
+            //         this.list.pop()
+            //     },
+            //     change: function () {
+            //         this.list = this.list.slice(0, 1)
+            //     }
+            // },
             methods: {
                 add: function () {
                     this.list.push(this.fruit)
@@ -33,9 +44,9 @@
                     this.list.pop()
                 },
                 change: function () {
-                    this.list = this.list.slice(0, 1)
+                    this.list = this.list.slice(0, 2)
                 }
-            }
+            },
         })
     </script>
 </body>

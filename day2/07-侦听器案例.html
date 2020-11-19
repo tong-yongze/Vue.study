@@ -12,37 +12,74 @@
         <div>
             <span>用户名：</span>
             <input type="text" v-model.lazy='uname'>
+
+            <!-- 没有lazy 就用清除定时器  防抖：频繁触发也不会执行 不触发的一段时间后才执行-->
+            <!-- <input type="text" v-model='uname'> -->
+
             <span>{{tip}}</span>
         </div>
     </div>
     <script src="./js/vue.js"></script>
     <script>
+        // var timer = null;
+        // const vm = new Vue({
+        //     el: "#app",
+        //     data: {
+        //         uname: '',
+        //         tip: ''
+        //     },
+        //     methods: {
+        //         checkName: function (uname) {
+        //             // 定时器 清除
+        //             // clearInterval(timer)
+        //             var that = this;
+        //             // 调用接口 但是可以使用定时任务的方式模拟接口调用
+        //             setTimeout(function () {
+        //                 // 模拟接口调用
+        //                 if (uname === 'admin') {
+        //                     that.tip = '用户名已经存在,请更换'
+        //                 } else {
+        //                     that.tip = '用户名可以使用'
+        //                 }
+        //             }, 1500);
+        //         }
+        //     },
+        //     watch: {
+        //         uname: function (val) {
+        //             // 调用后台接口验证用户名的合法
+        //             this.checkName(val);
+        //             // 修改提示
+        //             this.tip = '正在验证...'
+        //         }
+        //     },
+        // })
         const vm = new Vue({
-            el: "#app",
+            el: '#app',
             data: {
                 uname: '',
                 tip: ''
             },
-            methods: {
-                checkName: function (uname) {
-                    var that = this;
-                    // 调用接口 但是可以使用定时任务的方式模拟接口调用
-                    setTimeout(function () {
-                        if (uname === 'admin') {
-                            that.tip = '用户名已经存在,请更换'
-                        } else {
-                            that.tip = '用户名可以使用'
-                        }
-                    }, 1500);
-                }
-            },
-            watch: {
-                uname: function (val) {
-                    this.checkName(val);
-                    this.tip = '正在验证...'
-                }
-            },
+            // methods: {
+            //     checkName: function (uname) {
+            //         var that = this;
+            //         setTimeout(function () {
+            //             if (uname == 'admin') {
+            //                 that.tip = '已经存在'
+            //             } else {
+            //                 that.tip = '可以使用'
+            //             }
+            //         }, 1500)
+            //     }
+            // },
+            // watch: {
+            //     uname: function (val) {
+            //         this.checkName(val);
+            //         this.tip = '验证中'
+            //     }
+            // },
+
         })
+
     </script>
 </body>
 

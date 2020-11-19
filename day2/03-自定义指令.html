@@ -14,12 +14,16 @@
     </div>
     <script src="./js/vue.js"></script>
     <script>
+        // 注册一个全局指令 v - focus  获取元素焦点
         Vue.directive('focus', {
+            // el插入到了它的父级 父级已经存在的时候触发
             inserted: function (el) {
                 // el 表示指令所绑定的元素
+                console.log(el.parentNode);
                 el.focus();
             }
         })
+
         const vm = new Vue({
             el: "#app",
             data: {
