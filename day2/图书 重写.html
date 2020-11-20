@@ -48,12 +48,12 @@
                             编号：
                         </label>
                         <!-- 动态的需要加：绑定 -->
-                        <input type="text" id="id" v-model='id' :disabled='flag' v-focus>
+                        <input type="text" id="id" v-model='id' v-focus :disabled='flag'>
                         <label for="name">
                             名称：
                         </label>
                         <input type="text" id="name" v-model='name'>
-                        <button @click='handle(id,name)' :disabled='submitFlag'>提交</button>
+                        <button @click='handle(id,name)' :disabled='submitItem'>提交</button>
                     </div>
                 </div>
                 <div>{{total}}</div>
@@ -76,7 +76,7 @@
                             <!-- <a href="" @click.prevent="toEdit(item.id)">修改</a> -->
                             <a href="" @click.prevent='toEdit(item.id,item.name)'>修改</a>
                             <span>|</span>
-                            <a href="" @click.prevent='deleteItem(item.id)'>删除</a>
+                            <a href="" @click.prevent='deleteItem(id)'>删除</a>
                         </td>
                     </tr>
                 </tbody>
@@ -135,8 +135,8 @@
         const vm = new Vue({
             el: '#app',
             data: {
-                submitFlag: false,
                 flag: false,
+                submitItem: false,
                 id: '',
                 name: '',
                 books: [
@@ -161,6 +161,7 @@
             methods: {
                 handle(id, name) {
                     if (this.flag) {
+                        // console.log(id, name);
                         // 编辑
                         this.books.some(item => {
                             if (item.id == id) {
@@ -168,40 +169,40 @@
                                 return true
                             }
                         })
-                        this.flag = false;
-                        // this.books.some(function (item) {
-                        //     // console.log(this.id);
-                        // })
-
-                    } else {
+                    }
+                    else {
+                        // findIndex()查找目标元素，找到就返回元素的位置，找不到就返回-1。
                         let result = this.books.findIndex(item => item.id == this.id)
+                        // 如果resule 找不到相同的id 元素 就是-1  如果找到了 就不是-1 返回值 就代表重复id了
                         if (result !== -1) {
-                            this.id = ''
-                            this.name = ''
-                            alert('id重复啦')
+                            alert('id不能重复')
+                            this.id = '';
+                            this.name = '';
                             return
                         }
-                        // 提交图书
-                        let book = {}
+                        // 提交 添加图书
+                        var book = {}
                         book.id = this.id
                         book.name = this.name
-                        this.books.push(book)
                         book.date = new Date().getTime()
+                        this.books.push(book)
                     }
-                    this.id = ''
-                    this.name = ''
-
+                    this.id = '';
+                    this.name = '';
+                    this.flag = false
                 },
-                // 修改
                 toEdit(id, name) {
                     this.id = id
-                    this.name = name;
+                    this.name = name
                     this.flag = true
                 },
-                //删除
                 deleteItem(id) {
-                    this.books = this.books.filter(item => item.id !== id)
-                },
+                    let index = this.books.findIndex(function (item) {
+                        return this.id = id
+                    })
+                    this.books.splice(index, 1)
+                }
+
             },
             computed: {
                 total() {
@@ -210,8 +211,8 @@
             },
             watch: {
                 name: function (val) {
-                    var flag = this.books.some(item => item.name == this.name)
-                    this.submitFlag = flag
+                    var flag = this.books.some(item => item.name == val)
+                    this.submitItem = flag
                 }
             },
         })
