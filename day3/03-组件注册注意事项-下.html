@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
 </head>
+
 <body>
   <div id="app">
     <button-counter></button-counter>
@@ -17,7 +19,7 @@
       在普通的标签模板中，必须使用短横线的方式使用组件
     */
     Vue.component('HelloWorld', {
-      data: function(){
+      data: function () {
         return {
           msg: 'HelloWorld'
         }
@@ -25,7 +27,7 @@
       template: '<div>{{msg}}</div>'
     });
     Vue.component('button-counter', {
-      data: function(){
+      data: function () {
         return {
           count: 0
         }
@@ -38,7 +40,7 @@
         </div>
       `,
       methods: {
-        handle: function(){
+        handle: function () {
           this.count += 2;
         }
       }
@@ -46,9 +48,10 @@
     var vm = new Vue({
       el: '#app',
       data: {
-        
+
       }
     });
   </script>
 </body>
+
 </html>

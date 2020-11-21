@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 自己填坑 -->
+    <alert-box>我挖坑了</alert-box>
+    <alert-box></alert-box>
+  </div>
+  <script type="text/javascript" src="js/vue.js"></script>
+  <script type="text/javascript">
+    /*
+      组件插槽：父组件向子组件传递内容
+    */
+    Vue.component('alert-box', {
+      // slot 用来挖坑 
+      template: `
+        <div>
+          <strong>ERROR:</strong>
+          <slot>手挖的</slot>
+        </div>
+      `
+    });
+    var vm = new Vue({
+      el: '#app',
+      data: {
+
+      }
+    });
+  </script>
+</body>
+
+</html>
