@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./js/vue.js"></script>
+    <script>
+        // const p = new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         if (Math.random() > 0.4) {
+        //             resolve('成功')
+        //         } else {
+        //             reject('失败')
+        //         }
+        //     }, 1000)
+        // })
+        // p.then((data) => {
+        //     console.log(data);
+        // }, err => {
+        //     console.log(err);
+        // })
+
+        // const p = new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         if (Math.random() > 0.5) {
+        //             resolve('成功')
+        //         } else {
+        //             reject('失败')
+        //         }
+        //     }, 1000)
+        // })
+        // p.then(data => {
+        //     console.log(data);
+        // }, err => {
+        //     console.log(err);
+        // })
+
+        const sum = (a, b, c) => {
+            setTimeout(() => {
+                let sum = a + b;
+                c(sum)
+            }, 1000)
+        }
+        sum(5, 8, function (r) {
+            console.log(r);
+        })
+
+
+    </script>
+</body>
+
+</html>
