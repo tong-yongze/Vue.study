@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 回调函数解决函数多层嵌套问题。
+        function sum(a, b, fn) {
+            setTimeout(() => {
+                let sum = a + b
+                fn(sum)
+
+            }, 1000)
+
+        }
+        sum(5, 8, function(r) {
+                console.log(r);
+            })
+            //ES6出来的promise用来解决回调地狱的一种编码方案
+            //基本使用
+            //第一步先new 一个promise实例对象
+            //实例对象promise里接收的是一个函数函数里有两个参数resolve和reject 
+            //resolve代表成功之后需要调用的方法|reject代表失败之后需要调用的方法
+        const p = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if (Math.random() > 0.5) {
+                        resolve('成功哦')
+                    } else {
+                        reject('失败哦')
+                    }
+                }, 1000);
+            })
+            //要拿到成功或者失败之后的结果，要通过then方法
+            // then 里面也有两个参数，也是两个方法函数，一个代表成功一个代表失败
+        p.then(data => {
+                //成功的到这里哦,log打印的是resolve里面传过来的
+                console.log(data);
+            }, err => {
+                //失败的到这里哦,log打印的是reject里面传过来的
+                console.log(err);
+            })
+            //Promise确实阔以解决回调地狱的问题，但是不能简化代码 后面ES7给我们推出了async/await 
+            //但是在这之前有一个需要了解的方法 axios
+            //-------------------------------------------------------
+            //axios发送get请求,axios也是一部分基于promise的 delete跟get传参一样
+        axios.get('url').then(ret => {
+                console.log(ret.data); //ret.data请求得到的数据 ，ret是一个对象 所有的属性都存在ret的data中
+            })
+            //axios发送get用prams传参
+        axios.get('url', {
+            parmas: {
+                name: '万懿'
+            }
+        }).then(ret => {
+            console.log(ret.data); //此处阔以用axios的拦截器 响应拦截 ret.data 
+        })
+
+        //axios发送post请求  post和put是一样的。然后和get的区别是不用params
+        axios.post('url', {
+            uname: 'lisi',
+            pwd: 123
+        }).then(function(ret) {
+            console.log(ret.data)
+        });
+        //axios的全局配置
+        // 配置公共的请求头 
+        axios.defaults.baseURL = 'https://api.example.com';
+
+        // 配置超时时间
+        axios.defaults.timeout = 2500;
+
+        // 配置公共的请求头
+        axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+
+        // 配置公共的 post 的 Content-Type
+        axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+        //async和await用来简化promise的代码 此时 这两兄弟跟axios绝配
+        async function queryData() {
+            let ret = await axios.get('url') // await 负责接受请求成功和失败传递过来的参数
+            return ret.data
+        }
+        queryData().then(data => {
+            console.log(data); //此时的data是服务器给我们的东西
+        })
+    </script>
+</body>
+
+</html>

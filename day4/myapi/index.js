@@ -16,11 +16,12 @@ app.all('*', function (req, res, next) {
   // res.header('Access-Control-Allow-Headers', 'mytoken');
   next();
 });
+
 app.get('/async1', (req, res) => {
   res.send('hello1')
 })
 app.get('/async2', (req, res) => {
-  if (req.query.info == 'hello') {
+  if (req.query.info == 'hello1') {
     res.send('world')
   } else {
     res.send('error')
@@ -55,7 +56,7 @@ app.get('/axios-json', (req, res) => {
 
 
 app.get('/fdata', (req, res) => {
-  res.send('Hello Fetch!')
+  res.send('Hello Fetch!!')
 })
 app.get('/books', (req, res) => {
   res.send('传统的URL传递参数!' + req.query.id)

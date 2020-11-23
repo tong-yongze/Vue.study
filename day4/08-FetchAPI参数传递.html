@@ -33,14 +33,14 @@
     //   });
 
     // DELETE请求方式参数传递
-    // fetch('http://localhost:3000/books/789', {
-    //   method: 'delete'
-    // })
-    //   .then(function(data){
-    //     return data.text();
-    //   }).then(function(data){
-    //     console.log(data)
-    //   });
+    fetch('http://localhost:3000/books/789', {
+      method: 'delete'
+    })
+      .then(function (data) {
+        return data.text();
+      }).then(function (data) {
+        console.log(data)
+      });
 
     // POST请求传参
     // fetch('http://localhost:3000/books', {
