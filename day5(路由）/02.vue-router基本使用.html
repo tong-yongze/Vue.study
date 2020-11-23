@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- router-link 会默认渲染为 a 标签 -->
+        <!-- to 默认属性会被渲染为href 属性  to属性的值在渲染期间会自动在前面加个#-->
+        <!-- 第2步  创建对应的路由链接 -->
+        <router-link to='/user'>User</router-link>
+        <router-link to='/register'>Register</router-link>
+        <!-- 添加路由填充位 -->
+        <!-- 将来通过路由规则匹配到的组件 将会被渲染到 router-view 所在的位置 -->
+
+        <!-- 第3步 需要在页面上添加路由占位符-->
+        <router-view></router-view>
+    </div>
+    <!-- 第1步 导入文件 -->
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/vue-router_3.0.2.js"></script>
+    <script>
+        // 第4步  创建 对应路由组件  供路由进行切换
+        const User = {
+            template: '<h1>User组件</h1>'
+        }
+        const Register = {
+            template: '<h1>Register组件</h1>'
+        }
+        // 第5步  创建路由实例对象  并且在创建期间 传递一个routes 数组指定所需的路由规则 需要包含 path 和 component 属性 
+        const router = new VueRouter({
+            // 所有的路由规则
+            routes: [
+                // 这个path 属性对应的是 上面link to属性是谁 就和他一一对应
+                // compononent 代表的是 输入的是path 这个hash 地址 对应的就要展示user组件   注意它只接收 组件对象 不接收字符串
+                { path: '/user', component: User },
+                { path: '/register', component: Register }
+            ]
+        })
+        // 第6 步 需要把创建出来的 router 挂载到 vm 实例上 这样路由就可以正常工作了
+        const vm = new Vue({
+            el: '#app',
+            data: {},
+            router
+        })
+    </script>
+</body>
+
+</html>
