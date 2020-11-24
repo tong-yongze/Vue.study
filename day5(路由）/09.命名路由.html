@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <!-- 导入 vue 文件 -->
+    <script src="./lib/vue_2.5.22.js"></script>
+    <script src="./lib/vue-router_3.0.2.js"></script>
+</head>
+
+<body>
+    <!-- 被 vm 实例所控制的区域 -->
+    <div id="app">
+        <router-link to="/user1">User1</router-link>
+        <router-link to="/user2">User2</router-link>
+        <!-- 帮助我们实现路由跳转 记得加冒号  name是路由名称 params代表需要携带的参数 -->
+        <router-link :to="{name:'user',params:{id: 3}}">User3</router-link>
+        <router-link to="/register">Register</router-link>
+        <!-- 路由占位符 -->
+        <router-view></router-view>
+    </div>
+    <script>
+        const User = {
+            // 这里的id虽然匹配成功 但是访问不到它的值
+            props: ['id', 'uname', 'age'],
+            template: `<h1>User 组件--用户id为:{{id}}--姓名为:{{uname}}--年龄为:{{age}}</h1>`
+        }
+        const Register = {
+            template: '<h1>Register 组件</h1>'
+        }
+        // 创建路由实例对象
+        const router = new VueRouter({
+            // 所有的路由规则
+            routes: [
+                { path: '/', redirect: '/user' },
+                {
+                    // 加一个命名
+                    name: 'user',
+                    path: '/user:id',
+                    component: User,
+                    props: route => ({ uname: 'zs', age: 19, id: route.params.id })
+                },
+                // 为 props指定一个箭头函数 它的形参有个 route对象  它就是路由中动态参数对象  在user里面有几个参数  这里就有几个值  在这里可以定义动态的参数 如这个id 它的值是通过 route 动态匹配到 path里面的id 给他放到 params后面的位置
+                { path: '/register', component: Register }
+            ]
+        })
+        // 创建 vm 实例对象
+        const vm = new Vue({
+            // 指定控制的区域
+            el: '#app',
+            data: {},
+            // 挂载路由实例对象
+            // router: router
+            router
+        })
+    </script>
+</body>
+
+</html>
