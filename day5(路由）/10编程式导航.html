@@ -45,7 +45,8 @@
             `,
             methods: {
                 geBack() {
-                    this.$router.go(-1)
+                    this.$route // 当规则发生匹配的时候  可以获取路由相关的信息
+                    this.$router.go(-1)  // 编程时导航 用来跳转的
                 }
             },
         }

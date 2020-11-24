@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to='/user'>User</router-link>
+        <router-link to='/register'>Register</router-link>
+        <router-view></router-view>
+    </div>
+
+
+    <script src="./lib/vue.js"></script>
+    <script src="./lib/vue-router_3.0.2.js"></script>
+
+
+    <script>
+        // 创建路由组件
+        const User = {
+            template: `
+            <div>
+                <h1>User组件</h1>
+                <div><button @click="goRegister">跳转到注册页面</button></div>
+            </div>
+            `,
+            methods: {
+                goRegister() {
+                    this.$router.push('/register')
+                }
+            },
+        }
+        const Register = {
+            template: `
+            <div>
+                <h1>Register组件</h1>
+                <hr/>
+                <router-link to="/register/tab1">tab1</router-link>
+                <router-link to="/register/tab2">tab2</router-link>
+                <button @click="goBack">后退</button>
+                <router-view />
+            </div>
+            `,
+            methods: {
+                goBack() {
+                    this.$router.go(-1)
+                }
+            },
+        }
+
+        const Tab1 = {
+            template: '<h3>Tab1组件</h3>'
+        }
+        const Tab2 = {
+            template: '<h3>Tab2组件</h3>'
+        }
+        const router = new VueRouter({
+            routes: [
+                { path: '/', redirect: '/user' },
+                { path: '/user', component: User },
+                {
+                    path: '/register',
+                    component: Register,
+                    redirect: '/register/tab1',  // 推荐这个
+                    children: [
+                        // 点击注册页面 就显示tab1 页面 注册里面的子组件可以简写 成 tab1 
+                        // { path: '/', redirect: '/tab1' },  第二种写法
+                        { path: 'tab1', component: Tab1 },
+                        { path: 'tab2', component: Tab2 },
+                        // { path: '/register/tab1', component: Tab2 },
+                    ]
+                }
+            ]
+        })
+        const vm = new Vue({
+            el: "#app",
+            // 挂载
+            router
+        })
+    </script>
+</body>
+
+</html>
