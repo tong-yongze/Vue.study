@@ -204,16 +204,18 @@
       methods: {
         goDetail(id) {
           console.log(id);
+          // 动态的传递参数 id   传递用户id 
           this.$router.push('/userinfo/' + id)
         }
       },
     }
 
     const UserInfo = {
+      // 获取到id的信息
       props: ['id'],
       template: `
         <div>
-          <h3>用户详情页:该id为{{id}}</h3>
+          <h3>用户详情页:该id为----{{id}}</h3>
           <button @click="goBack()">后退一步</button>
         </div>
       `,
@@ -244,6 +246,7 @@
           redirect: '/users',
           children: [
             { path: '/users', component: Users },
+            // 绑定：id  传递给 父组件  然后 UserInfo 获取id 信息
             { path: '/userinfo/:id', component: UserInfo, props: true },
             { path: '/rights', component: Rights },
             { path: '/goods', component: Goods },
