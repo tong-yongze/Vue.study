@@ -125,7 +125,7 @@
         // 加上async 保证await 生效
         handle: async function () {
           if (this.flag) {
-            // 编辑图书
+            // 编辑图书  修改的请求
             var ret = await axios.put('books/' + this.id, {
               name: this.name
             });

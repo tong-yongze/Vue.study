@@ -8,7 +8,11 @@
 </head>
 
 <body>
-    <button>按钮</button>
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <button>按钮4</button>
+
 
     <script>
         // 1.变量作用域：变量在上面范围内是可用
@@ -31,6 +35,24 @@
         // console.log(name);
 
         // 3.没有块级作用域引起的问题   for 的块级
+        // 为什么闭包可以解决问题？ 函数是一个作用域
+        // var btns = document.getElementsByTagName('button')
+        // for (var i = 0; i < btns.length; i++) {
+        //     (function (num) {
+        //         btns[i].addEventListener('click', function () {
+        //             console.log('第' + i + '个按钮被点击');
+        //         })
+        //     })(i)
+        // }
+
+        var btns = document.getElementsByTagName('button')
+        for (let i = 0; i < btns.length; i++) {
+            (function (num) {
+                btns[i].addEventListener('click', function () {
+                    console.log('第' + i + '个按钮被点击');
+                })
+            })(i)
+        }
 
     </script>
 </body>

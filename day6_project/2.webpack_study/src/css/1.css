@@ -1,0 +1,12 @@
+
+ li{
+    list-style: none;
+ }
+ input::placeholder{
+   color: red;
+}
+#box{
+  width: 1000px;
+  height: 1000px;
+   background: url('/src/images/bg6.jpg') no-repeat ;
+}
