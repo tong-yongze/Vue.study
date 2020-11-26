@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style type="text/css">
+    .grid {
+      margin: auto;
+      width: 530px;
+      text-align: center;
+    }
+
+    .grid table {
+      border-top: 1px solid #C2D89A;
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .grid th,
+    td {
+      padding: 10;
+      border: 1px dashed #F3DCAB;
+      height: 35px;
+      line-height: 35px;
+    }
+
+    .grid th {
+      background-color: #F3DCAB;
+    }
+
+    .grid .book {
+      padding-bottom: 10px;
+      padding-top: 5px;
+      background-color: #F3DCAB;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="grid">
+      <div>
+        <h1>图书管理</h1>
+        <div class="book">
+          <div>
+            <label for="id">
+              编号：
+            </label>
+            <input type="text" id="id" v-model='id' :disabled="flag" v-focus>
+            <label for="name">
+              名称：
+            </label>
+            <input type="text" id="name" v-model='name'>
+            <button @click='handle' :disabled="subFlag">提交</button>
+          </div>
+        </div>
+        <div>{{total}}</div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>编号</th>
+            <th>名称</th>
+            <th>时间</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr :key='item.id' v-for='item in books'>
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.date | format('yyyy-MM-dd hh:mm:ss')}}</td>
+            <td>
+              <a href="" @click.prevent='toEdit(item.id)'>修改</a>
+              <span>|</span>
+              <a href="" @click.prevent='deleteItem(item.id)'>删除</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script type="text/javascript" src="js/vue.js"></script>
+  <script type="text/javascript">
+    /*
+      图书管理-添加图书
+    */
+    Vue.directive('focus', {
+      inserted: function(el) {
+        el.focus();
+      }
+    });
+    Vue.filter('format', function dateFormat(date, format) {
+      if (typeof date === "string") {
+        var mts = date.match(/(\/Date\((\d+)\)\/)/);
+        if (mts && mts.length >= 3) {
+          date = parseInt(mts[2]);
+        }
+      }
+      date = new Date(date);
+      if (!date || date.toUTCString() == "Invalid Date") {
+        return "";
+      }
+      var map = {
+        "M": date.getMonth() + 1, //月份 
+        "d": date.getDate(), //日 
+        "h": date.getHours(), //小时 
+        "m": date.getMinutes(), //分 
+        "s": date.getSeconds(), //秒 
+        "q": Math.floor((date.getMonth() + 3) / 3), //季度 
+        "S": date.getMilliseconds() //毫秒 
+      };
+
+      format = format.replace(/([yMdhmsqS])+/g, function (all, t) {
+        var v = map[t];
+        if (v !== undefined) {
+          if (all.length > 1) {
+            v = '0' + v;
+            v = v.substr(v.length - 2);
+          }
+          return v;
+        } else if (t === 'y') {
+          return (date.getFullYear() + '').substr(4 - all.length);
+        }
+        return all;
+      });
+      return format;
+    })
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        flag: false,
+        subFlag: false,
+        id: '',
+        name: '',
+        books: []
+      },
+      methods: {
+        handle: function () {
+          if (this.flag) {
+            // 编辑图书
+            // 就是根据当前的ID去更新数组中对应的数据
+            this.books.some((item) => {
+              if (item.id == this.id) {
+                item.name = this.name;
+                // 完成更新操作之后，需要终止循环
+                return true;
+              }
+            });
+            this.flag = false;
+          } else {
+            // 如果说 id 在 data 里面能找到，就不允许添加了
+            let result = this.books.findIndex(item => item.id == this.id);
+            if (result !== -1) {
+              return alert('ID 不能重复');
+            }
+            // 添加图书
+            var book = {};
+            book.id = this.id;
+            book.name = this.name;
+            book.date = new Date().getTime();
+            this.books.push(book);
+            // 清空表单
+            this.id = '';
+            this.name = '';
+          }
+          // 清空表单
+          this.id = '';
+          this.name = '';
+        },
+        toEdit: function (id) {
+          // 禁止修改ID
+          this.flag = true;
+          console.log(id)
+          // 根据ID查询出要编辑的数据
+          var book = this.books.filter(function (item) {
+            return item.id == id;
+          });
+          console.log(book)
+          // 把获取到的信息填充到表单
+          this.id = book[0].id;
+          this.name = book[0].name;
+        },
+        deleteItem(id) {
+          /* // 根据 id，找当前数据所在数组中的索引
+          let index = this.books.findIndex(item => item.id == id);
+          // 从 index 开始，删除 1 个
+          this.books.splice(index, 1); */
+
+          // 数据中的 id 不等于传过来的id，应该保留
+          this.books = this.books.filter(item => item.id != id);
+        }
+      },
+      computed: {
+        total: function() {
+          return this.books.length;
+        }
+      },
+      watch: {
+        name: function(newName) {
+          // 如果 newName 在 data 的 books 里面能检车到，说明存在了
+          let flag = this.books.some(item => item.name == this.name);
+          // 存在了就把提交按钮禁用
+          /* if (flag) {
+            this.subFlag = true;
+          } else {
+            // 否者激活
+            this.subFlag = false;
+          } */
+          this.subFlag = flag;
+        }
+      },
+      // mounted
+      created() {
+        this.books = [{
+          id: 1,
+          name: '三国演义',
+          date: 1605780421047
+        }, {
+          id: 2,
+          name: '水浒传',
+          date: 1605780423047
+        }, {
+          id: 3,
+          name: '红楼梦',
+          date: 1605780425047
+        }, {
+          id: 4,
+          name: '西游记',
+          date: 1605780427047
+        }];
+      },
+    });
+
+  // 过滤器（日期格式化）
+  // 自定义指令（input 框聚焦）
+  // 计算属性（图书总量）
+  </script>
+</body>
+
+</html>
